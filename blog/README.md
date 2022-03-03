@@ -2,7 +2,7 @@
 
 ## 세팅
 
-### `npx create react blog`
+### `npx create-react-app {프로젝트명}`
 
 
 ## 작동방식
@@ -13,10 +13,10 @@ index.js\
 -> function App(){} export default App;
 
 ## JSX
-js에서 html같이 생긴 JSX문법을 return
+js에서 html을 작성할 숫 있게 해주는 React 내장 JSX문법
 return 안에는 크게 하나의 태그가 감싸고 있어야 함.
 
-## 데이터 바인딩
+### 데이터 바인딩
 서버에서 받아온 데이터를 화면에 보여줄 때 기존 JS의 document.getElement~ 등보다 간편함\
 {변수명, 함수 등}\
 <img src="~~~.jpg"\> 보다 간편하게 import img1 from './img.png'; 후 <img src={img1}"\>
