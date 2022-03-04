@@ -13,6 +13,7 @@ function App() {
     setSeeModal(!seeModal);
     e.target.innerText = e.target.innerText ==="open" ? e.target.innerText = "close" : e.target.innerText = "open";
   }  
+  let [newInput,setNewInput] = useState("");
   return (
     <div className="App">
       <div className="black-nav">
@@ -36,6 +37,12 @@ function App() {
      }
       <button onClick={isit}>open</button>
       { seeModal===true ? <Modal clickedTitle={clickedTitle}/> : null}
+      <input onChange={(e)=>{setNewInput(e.target.value)}} placeholder="Write New Title"></input>
+      <button onClick={()=>{
+        let newTitiles = [...title];
+        newTitiles.push(newInput);
+        setTitle(newTitiles);
+      }}>Save</button>
     </div>
   );
 }
