@@ -67,6 +67,7 @@ const arr2 = arr.map(( each )=> {return each*2});
 ### props
 > 자식 Component에서 부모 Component를 사용하기 위함
 ```
+// 부모
 function 부모Component(){
     let ]부모에있는state,setState] = useState('부모로부터');
     return(
@@ -76,6 +77,7 @@ function 부모Component(){
     )
 }
 
+//자식
 function 자식Component(props){
     return(
         <div>props.전송할이름</div>
@@ -92,3 +94,64 @@ function 자식Component(props){
 * 배열.push(추가할 원소) : 맨 뒤에 원소 추가
 * 배열.shift() : 맨 앞의 원소 제거
 * 배열.pop() : 맨 뒤의 원소 제거
+
+## import / export
+내보낼파일.js 에서 export문으로 함수, 객체, 원시값을 내보냄
+다른 파일에서 import 문으로 가져올 수 있음.
+* named export named\
+여러 값을 내보낼 때 유용!\
+가져갈 때는 내보낸 이름과 동일한 이름 사용
+>//exportFile.js \
+export {myFunction, myVariable}; \
+//importFile.js \
+import myFunction from './exportFile.js';
+
+* export default\
+단일 값
+>//exportFile.js \
+export default myFunction \
+//importFile.js \
+import myFunction from './exportFile.js';
+
+## Routing
+>상세 주소에 따라 다른 뷰를 보여주는 것 \
+상세 페이지 등 페이지 이동할 때 /이후로 지정\
+> 라우터를 사용하면 SPA(Single Page Application : 페이지를 이동할때마다 각각의 HTML을 불러와 로딩하는 것이 아닌, 처음에 한번만 받아오고 이후엔 필요한 데이터만 받아와 화면에 보여줌)
+
+### react-router
+* 설치\
+`npm install react-router-dom`
+
+* index.js \
+`import { BrowserRouter } from 'react-router-dom';`
+```
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root')
+);
+```
+
+* App.js \
+`import { Link, Route, Switch } from 'react-router-dom';`
+
+🚨A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.\
+💡react-router-dom 라이브러리의 업데이트된 문법을 적용한다. <a href="https://reactrouter.com/docs/en/v6/getting-started/overview#configuring-routes">공식문서</a>
+1. 모든 <Route>를 전체적으로 <Routes>가 감싸줘야한다.\
+```
+import About from './pages/About';
+import Home from './pages/Home';
+
+ReactDOM.render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />}></Route>
+      <Route path="/home" element={<Home />}></Route>
+      <Route path="/about" element={<About />}></Route>
+    </Routes>
+  </BrowserRouter>,
+  document.getElementById('root')
+);
+```
+2. 파라미터는 element = {<컴포넌트 />}

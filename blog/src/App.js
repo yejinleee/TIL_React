@@ -1,9 +1,15 @@
 import React, {useState} from 'react'; 
 import logo from './logo.svg';
 import './App.css';
+import { Navbar, Nav, NavDropdown, Button, Jumbotron } from 'react-bootstrap';
+import shoesData from './data.js'
+import { Link, Route, Routes, Switch } from 'react-router-dom';
+import About from './pages/About';
+import Home from './pages/Home';
 
 function App() {
-
+  let [shoes, shoes변경] = useState(shoesData);
+  console.log('import data.js : ',shoes);
   let [title, setTitle] = useState(['제목1','제목2','제목3']);
   let [thumb, setThumb] = useState(0);
   let [seeModal, setSeeModal] = useState(false);
@@ -43,6 +49,12 @@ function App() {
         newTitiles.push(newInput);
         setTitle(newTitiles);
       }}>Save</button>
+      {/* <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
+      </Routes> */}
+
+
     </div>
   );
 }
