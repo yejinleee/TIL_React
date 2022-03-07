@@ -1,4 +1,4 @@
-import React, {useState} from 'react'; 
+import React, {useEffect, useState} from 'react'; 
 import logo from './logo.svg';
 import './App.css';
 import { Navbar, Nav, NavDropdown, Button, Jumbotron } from 'react-bootstrap';
@@ -9,7 +9,7 @@ import Home from './pages/Home';
 
 function App() {
   let [shoes, shoes변경] = useState(shoesData);
-  console.log('import data.js : ',shoes);
+  // console.log('import data.js : ',shoes);
   let [title, setTitle] = useState(['제목1','제목2','제목3']);
   let [thumb, setThumb] = useState(0);
   let [seeModal, setSeeModal] = useState(false);
@@ -20,6 +20,7 @@ function App() {
     e.target.innerText = e.target.innerText ==="open" ? e.target.innerText = "close" : e.target.innerText = "open";
   }  
   let [newInput,setNewInput] = useState("");
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -68,7 +69,7 @@ function App() {
 function Card(props){
   return (
     <div className="col-md-4">
-      <img src={'https://codingapple1.github.io/shop/shoes' + [props.i + 1] + '.jpg'} width="100%" />
+      <img src={'https://codingapple1.github.io/shop/shoes' + [props.i + 1] + '.jpg'} width="100%" alt={[props.i+1]}/>
       <h3> {props.shoes['title']} </h3>
       <p> {props.shoes['content']} & {props.shoes['price']}</p>
     </div>

@@ -114,12 +114,12 @@ export default myFunction \
 //importFile.js \
 import myFunction from './exportFile.js';
 
-## Routing
+## 페이지 이동
 >상세 주소에 따라 다른 뷰를 보여주는 것 \
 상세 페이지 등 페이지 이동할 때 /이후로 지정\
 > 라우터를 사용하면 SPA(Single Page Application : 페이지를 이동할때마다 각각의 HTML을 불러와 로딩하는 것이 아닌, 처음에 한번만 받아오고 이후엔 필요한 데이터만 받아와 화면에 보여줌)
 
-### react-router
+### Route
 * 설치\
 `npm install react-router-dom`
 
@@ -139,7 +139,7 @@ ReactDOM.render(
 
 🚨A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.\
 💡react-router-dom 라이브러리의 업데이트된 문법을 적용한다. <a href="https://reactrouter.com/docs/en/v6/getting-started/overview#configuring-routes">공식문서</a>
-1. 모든 <Route>를 전체적으로 <Routes>가 감싸줘야한다.\
+1. 모든 <Route\>를 전체적으로 <Routes\>가 감싸줘야한다.
 ```
 import About from './pages/About';
 import Home from './pages/Home';
@@ -156,3 +156,65 @@ ReactDOM.render(
 );
 ```
 2. 파라미터는 element = {<컴포넌트 />}
+
+### useHistory
+> window.history와 유사하게 전후나 특정 주소로 이동하게 한다
+
+```
+import { useHistory } from 'react-router-dom';
+let history = useHistory();
+
+<button className='bnt-useHistory' onClick={() => { history.goBack( ) }}> 뒤로가기 </button>
+
+<button className='bnt-useHistory' onClick={() => { history.goForward( ) }}> 앞으로가기 </button>
+
+// 특정 링크로
+<button className='bnt-useHistory' onClick={() => { history.push('/detail' )}}> 상세페이지로 이동 </button>
+```
+
+## Style
+### SASS
+> CSS전처리기\
+선택자의 중첩(Nesting)이나 조건문, 반복문, 다양한 단위(Unit)의 연산 등의 문법 코딩 가능
+
+* @mixin @include
+```
+@mixin 스타일명{
+  속성:값;
+}
+```
+으로 그룹단위 스타일을 변수로 지정해둘 수 있음.\
+인자를 사용할 수 있다\
+```
+mixin fontSize($size) {
+  @if $size == 'small' {
+    font-size: 10px;
+  }
+```
+처럼 조건으로 사용할 수도 있고, 속성에 대한 값으로 사용할 수도 있다.\
+이를 사용할때는
+```
+적용할 요소{
+  @include 스타일명;
+  @inlcude 스타일명(인자);
+}
+```
+<a href="https://webisfree.com/2019-10-08/[scss]-mixin-include-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95-%EB%B0%8F-%EC%98%88%EC%A0%9C%EB%B3%B4%EA%B8%B0">참고</a>
+
+## useEffect
+> 페이지가 렌더링되면 콜백함수를 실행한다.
+* No dependency
+```
+useEffect(() => {});
+```
+모든 렌더링 발생시마다 발동되기 때문에 유용하진 않음
+* []
+```
+useEffect(() => {}, []);
+```
+처음 렌더링이 발생한 직후에만 발동. 더이상은 발동 X
+* dependent on a variable
+```
+useEffect(() => {}, [prop, state]);
+```
+처음 렌더링이 발생한 직후, 그리고 배열 안 변수의 값이 변경될때마다 발동
