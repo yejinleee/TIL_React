@@ -98,7 +98,7 @@ function 자식Component(props){
 ## import / export
 내보낼파일.js 에서 export문으로 함수, 객체, 원시값을 내보냄
 다른 파일에서 import 문으로 가져올 수 있음.
-* named export named\
+* export named\
 여러 값을 내보낼 때 유용!\
 가져갈 때는 내보낸 이름과 동일한 이름 사용
 >//exportFile.js \
@@ -107,7 +107,8 @@ export {myFunction, myVariable}; \
 import myFunction from './exportFile.js';
 
 * export default\
-단일 값
+단일 값 \
+import하는 파일에서 네이밍 가능
 >//exportFile.js \
 export default myFunction \
 //importFile.js \

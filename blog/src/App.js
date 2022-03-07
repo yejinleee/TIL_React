@@ -24,23 +24,23 @@ function App() {
     <div className="App">
       <div className="black-nav">
         <div style= { {color : 'white', fontSize : '30px'}}> 개발 Blog </div>
-     </div>
+      </div>
   
-     <div className="list">
-      <h3> { title[0] } <span onClick={ ()=> {setThumb(thumb +1 )}}>👍🏻</span> {thumb} </h3>
-      <hr/>
-     </div>
-     {
-       title.map( (each,i) =>{
+      <div className="list">
+        <h3> { title[0] } <span onClick={ ()=> {setThumb(thumb +1 )}}>👍🏻</span> {thumb} </h3>
+        <hr/>
+      </div>
+      {
+        title.map( (each,i) =>{
          return(
           <div className="list" key={i}>
-          <h3 onClick={()=>{setClickedTitle(each)}}> { each } </h3>
-          <p> YYMMDD 발행</p>
-          <hr/>
-        </div>
+            <h3 onClick={()=>{setClickedTitle(each)}}> { each } </h3>
+            <p> YYMMDD 발행</p>
+            <hr/>
+          </div>
          )
-       })
-     }
+        })
+      }
       <button onClick={isit}>open</button>
       { seeModal===true ? <Modal clickedTitle={clickedTitle}/> : null}
       <input onChange={(e)=>{setNewInput(e.target.value)}} placeholder="Write New Title"></input>
@@ -49,16 +49,31 @@ function App() {
         newTitiles.push(newInput);
         setTitle(newTitiles);
       }}>Save</button>
-      {/* <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/about" element={<About />}></Route>
-      </Routes> */}
+      
+      <div className='row'>
+        {
+          shoesData.map(function(n,i){
+            return(
+              <Card shoes = {shoesData[i]} i={i} key={i} />
+            )
+          })
+        }
+      </div>
 
 
     </div>
   );
 }
 
+function Card(props){
+  return (
+    <div className="col-md-4">
+      <img src={'https://codingapple1.github.io/shop/shoes' + [props.i + 1] + '.jpg'} width="100%" />
+      <h3> {props.shoes['title']} </h3>
+      <p> {props.shoes['content']} & {props.shoes['price']}</p>
+    </div>
+  )
+}
 function Modal(props){
   return(
     <div>
