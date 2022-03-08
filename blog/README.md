@@ -218,3 +218,20 @@ useEffect(() => {}, []);
 useEffect(() => {}, [prop, state]);
 ```
 처음 렌더링이 발생한 직후, 그리고 배열 안 변수의 값이 변경될때마다 발동
+
+## AJAX
+> Asynchronous JavaScript And XML : 서버와 비동기적으로 데이터를 주고받는 기술.\
+"새로고침 없이 서버에 GET요청하는 코드"
+### axios
+`npm install axios`\
+`import axios from 'axios';`
+* GET
+```
+axios.get('~~.json')
+.then((result) => {
+  console.log(result)
+})
+.catch((error)=>{
+  console.log(error)
+})
+```

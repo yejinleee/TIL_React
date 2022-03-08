@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Navbar, Nav, NavDropdown, Button, Jumbotron } from 'react-bootstrap';
-import shoesData from './data.js'
 import { Link, Route, Routes, Switch } from 'react-router-dom';
+import axios from 'axios'
+import shoesData from './data.js'
 import About from './pages/About';
 import Home from './pages/Home';
 
 function App() {
   let [shoes, shoes변경] = useState(shoesData);
-  // console.log('import data.js : ',shoes);
   let [title, setTitle] = useState(['제목1','제목2','제목3']);
   let [thumb, setThumb] = useState(0);
   let [seeModal, setSeeModal] = useState(false);
@@ -20,6 +20,10 @@ function App() {
     e.target.innerText = e.target.innerText ==="open" ? e.target.innerText = "close" : e.target.innerText = "open";
   }  
   let [newInput,setNewInput] = useState("");
+
+  let [loading,setLoading] = useState(false);
+  let [loaded,setLoaded]=useState(false);
+  let [loadingFail,setLoadingFail]=useState(false);
 
   return (
     <div className="App">
@@ -50,22 +54,45 @@ function App() {
         newTitiles.push(newInput);
         setTitle(newTitiles);
       }}>Save</button>
-      
+
       <div className='row'>
         {
-          shoesData.map(function(n,i){
+          shoes.map(function(n,i){
             return(
-              <Card shoes = {shoesData[i]} i={i} key={i} />
+              <Card shoes = {shoes[i]} i={i} key={i} />
             )
           })
         }
       </div>
+      {loading ===true ? <LoadingGif /> : null}
+      <button className='btn btn-primary' onClick={(e) => {
+        setLoading(true);
+          axios.get('https://codingapple1.github.io/shop/data2.json')
+          .then((result) => {
+            setLoading(false);
+            shoes변경([...shoes,...result.data])
+            setTimeout(()=> {
+              setLoaded(false);
+              e.target.hidden='true';  
+            },3000)
+          })
+          .catch(()=>{
+
+          })
+      }}> 더보기 </button>
 
 
     </div>
   );
 }
 
+function LoadingGif(){
+  return(
+    <>
+      <img alt="로딩중입니다" src='https://imgfiles-cdn.plaync.com/file/BladeNSoul/download/20160620132638-tLPjdUHThol8yDZ5p4gd0-v4'></img>
+      </>
+  )
+}
 function Card(props){
   return (
     <div className="col-md-4">
