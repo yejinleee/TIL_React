@@ -24,9 +24,27 @@ function App() {
   let [loading,setLoading] = useState(false);
   let [loaded,setLoaded]=useState(false);
   let [loadingFail,setLoadingFail]=useState(false);
+  let [스위치, 스위치변경] = useState(false);
+  let [누른탭, 누른탭변경] = useState(0);
+
 
   return (
     <div className="App">
+    <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+            <Nav.Link eventKey="link-0" onClick={() => { 스위치변경(false); 누른탭변경(0); }}> 리뷰 </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+            <Nav.Link eventKey="link-1" onClick={() => { 스위치변경(false); 누른탭변경(1); }}> QnA </Nav.Link>
+        </Nav.Item>
+    </Nav>
+    
+    <TabContent 누른탭={누른탭} 스위치변경={스위치변경} />
+    
+      <Navbar>
+        <Nav.Link to="/">Home </Nav.Link>
+        <Nav.Link to="/about">About </Nav.Link>
+      </Navbar> 
       <div className="black-nav">
         <div style= { {color : 'white', fontSize : '30px'}}> 개발 Blog </div>
       </div>
@@ -85,7 +103,19 @@ function App() {
     </div>
   );
 }
+function TabContent(props) {
+  useEffect(() => {
+      props.스위치변경(true);
+  })
 
+  if (props.누른탭 === 0) {
+      return <div>0번째 상품입니다.</div>
+  } else if (props.누른탭 === 1) {
+      return <div>1번째 상품입니다.</div>
+  } else {
+      return <div>나머지 상품입니다.</div>
+  }
+} 
 function LoadingGif(){
   return(
     <>

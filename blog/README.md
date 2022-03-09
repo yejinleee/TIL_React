@@ -157,6 +157,25 @@ ReactDOM.render(
 ```
 2. 파라미터는 element = {<컴포넌트 />}
 
+### Link
+>네비게이션 바에 to속성으로 이동할 페이지 경로를 지정한다.
+```
+<Navbar>
+  <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
+  <Nav.Link> <Link to="/detail">Detail</Link> </Nav.Link>
+</Navbar>
+```
+이렇게 설정하면\
+🚨validateDOMNesting(...): <a\> cannot appear as a descendant of <a\>\
+💡스택오버플로우 참고 후 <a\><a\></a\></a\> 로 인식되는 문제임을 알았고, 하나의 링크태그로 이용해도 된다!
+```
+<Navbar>
+  <Nav.Link to="/">Home </Nav.Link>
+  <Nav.Link to="/about">About </Nav.Link>
+</Navbar> 
+```
+
+
 ### useHistory
 > window.history와 유사하게 전후나 특정 주소로 이동하게 한다
 
