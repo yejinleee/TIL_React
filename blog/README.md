@@ -138,8 +138,8 @@ ReactDOM.render(
 `import { Link, Route, Switch } from 'react-router-dom';`
 
 🚨A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.\
-💡react-router-dom 라이브러리의 업데이트된 문법을 적용한다. <a href="https://reactrouter.com/docs/en/v6/getting-started/overview#configuring-routes">공식문서</a>
-1. 모든 <Route\>를 전체적으로 <Routes\>가 감싸줘야한다.
+💡react-router-dom 라이브러리의 업데이트된 문법을 적용한다. <a href="https://reactrouter.com/docs/en/v6/getting-started/overview#configuring-routes">공식문서</a>\
+-- > 1. 모든 <Route\>를 전체적으로 <Routes\>가 감싸줘야한다.
 ```
 import About from './pages/About';
 import Home from './pages/Home';
@@ -155,8 +155,24 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
-2. 파라미터는 element = {<컴포넌트 />}
+-- > 2. 파라미터는 element = {<컴포넌트 />}
 
+### useParam()
+`import {useParams} from "react-router-dom";`
+```
+<Route path="/detail/:id" element={<Detail />}></Route>      
+```
+`/:id`는 url뒤에 아무문자나 받을 수있다. 여기선 id로 작명했지만 아무 이름 가능\
+/detail/123214과 /detail/2354처럼 무작위 값을 해도 서로 동일 화면\
+만약\
+뒤에 오는 값에 따라 다른 화면을 보여주려 한다면??\
+>변수 = useParam();은 url의 모든 파라미터를 저장함
+
+*Detail.js
+```
+    let {id} = useParams();
+```
+let id = useParams();하면 console.log(id) >> {id:2} 이런식. destructing 해야함
 ### Link
 >네비게이션 바에 to속성으로 이동할 페이지 경로를 지정한다.
 ```
@@ -174,6 +190,12 @@ ReactDOM.render(
   <Nav.Link to="/about">About </Nav.Link>
 </Navbar> 
 ```
+<!-- 근데 이러면 이동을안하는데.......?
+      <Navbar>
+       <Link to="/">Home</Link> 
+       <Link to="/detail">Detail</Link> 
+      </Navbar> 
+      이케하면 서로 걍 텍스트인거처럼 붙 -->
 
 
 ### useHistory

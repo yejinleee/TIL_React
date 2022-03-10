@@ -7,6 +7,7 @@ import axios from 'axios'
 import shoesData from './data.js'
 import About from './pages/About';
 import Home from './pages/Home';
+import Detail from './pages/Detail';
 
 function App() {
   let [shoes, shoes변경] = useState(shoesData);
@@ -27,7 +28,7 @@ function App() {
   let [스위치, 스위치변경] = useState(false);
   let [누른탭, 누른탭변경] = useState(0);
 
-
+  console.log(shoes[2]);
   return (
     <div className="App">
     <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
@@ -38,12 +39,15 @@ function App() {
             <Nav.Link eventKey="link-1" onClick={() => { 스위치변경(false); 누른탭변경(1); }}> QnA </Nav.Link>
         </Nav.Item>
     </Nav>
-    
+    <Routes>
+      <Route path="/detail/:id" element={<Detail shoes={shoes}/>}></Route>
+      <Route path="/detail" element={<Detail/>}></Route>
+
+    </Routes>
     <TabContent 누른탭={누른탭} 스위치변경={스위치변경} />
-    
       <Navbar>
-        <Nav.Link to="/">Home </Nav.Link>
-        <Nav.Link to="/about">About </Nav.Link>
+       <Link to="/">Home</Link> 
+       <Link to="/detail">Detail</Link> 
       </Navbar> 
       <div className="black-nav">
         <div style= { {color : 'white', fontSize : '30px'}}> 개발 Blog </div>
