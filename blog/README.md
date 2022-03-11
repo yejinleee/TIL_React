@@ -117,15 +117,17 @@ import myFunction from './exportFile.js';
 ## 페이지 이동
 >상세 주소에 따라 다른 뷰를 보여주는 것 \
 상세 페이지 등 페이지 이동할 때 /이후로 지정\
-> 라우터를 사용하면 SPA(Single Page Application : 페이지를 이동할때마다 각각의 HTML을 불러와 로딩하는 것이 아닌, 처음에 한번만 받아오고 이후엔 필요한 데이터만 받아와 화면에 보여줌)
+> 라우터를 사용하면 SPA(Single Page Application)구현\
+->  페이지를 이동할때마다 각각의 HTML을 불러와 로딩하는 것이 아닌, 처음에 한번만 받아오고 이후엔 필요한 데이터만 받아와 화면에 보여줌
 
 ### Route
 * 설치\
 `npm install react-router-dom`
 
 * index.js \
-`import { BrowserRouter } from 'react-router-dom';`
 ```
+import { BrowserRouter } from 'react-router-dom';
+
 ReactDOM.render(
   <BrowserRouter>
     <App />
@@ -225,7 +227,7 @@ let history = useHistory();
 }
 ```
 으로 그룹단위 스타일을 변수로 지정해둘 수 있음.\
-인자를 사용할 수 있다\
+인자를 사용할 수 있다.
 ```
 mixin fontSize($size) {
   @if $size == 'small' {
@@ -243,7 +245,8 @@ mixin fontSize($size) {
 <a href="https://webisfree.com/2019-10-08/[scss]-mixin-include-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95-%EB%B0%8F-%EC%98%88%EC%A0%9C%EB%B3%B4%EA%B8%B0">참고</a>
 
 ## useEffect
-> 페이지가 렌더링되면 콜백함수를 실행한다.
+> deps인자에 따라 페이지가 렌더링 될 때마다 콜백함수를 실행한다.\
+useEffect(cb,deps);
 * No dependency
 ```
 useEffect(() => {});
