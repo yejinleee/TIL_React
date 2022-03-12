@@ -11,12 +11,7 @@ import Detail from './pages/Detail';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/*" element={<App />}></Route>
-      {/* <Route path="/detail/:id" element={<Detail />}></Route>       */}
-      <Route path="/home" element={<Home />}></Route>
-      <Route path="/about" element={<About />}></Route>
-    </Routes>
+    <App />
   </BrowserRouter>,
   document.getElementById('root')
 );
