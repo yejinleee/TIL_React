@@ -177,6 +177,8 @@ ReactDOM.render(
 let id = useParams();하면 console.log(id) >> {id:2} 이런식. destructing 해야함
 ### Link
 >네비게이션 바에 to속성으로 이동할 페이지 경로를 지정한다.
+
+*🚨에러 해결 과정🚨*
 ```
 <Navbar>
   <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
@@ -191,6 +193,12 @@ let id = useParams();하면 console.log(id) >> {id:2} 이런식. destructing 해
   <Nav.Link to="/">Home </Nav.Link>
   <Nav.Link to="/about">About </Nav.Link>
 </Navbar> 
+```
+⚠️index.tsx:30 You rendered descendant <Routes \> (or called useRoutes()) at "/" (under <Route path="/" \>) but the parent route path has no trailing "*". This means if you navigate deeper, the parent won't match anymore and therefore the child routes will never render. Please change the parent <Route path="/" \> to <Route path="*" \>. \
+이리 저리 찾아봤는데 경고 문구에 다 써있었다 ... ! \
+💡index.js 에서 자식 루트에서 deeper하게 navigate 하려면 처음 자식을 갈 때 * 지정!
+```
+<Route path="/*" element={<App />}></Route>
 ```
 <!-- 근데 이러면 이동을안하는데.......?
       <Navbar>

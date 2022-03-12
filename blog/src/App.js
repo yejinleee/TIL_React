@@ -41,7 +41,7 @@ function App() {
     </Nav>
     <Routes>
       <Route path="/detail/:id" element={<Detail shoes={shoes}/>}></Route>
-      <Route path="/detail" element={<Detail/>}></Route>
+      {/* <Route path="/detail" element={<Detail/>}></Route> */}
 
     </Routes>
     <TabContent 누른탭={누른탭} 스위치변경={스위치변경} />
