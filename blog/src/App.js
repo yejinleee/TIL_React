@@ -8,6 +8,7 @@ import shoesData from './data.js'
 import About from './pages/About';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
+import Cart from './Cart.js';
 
 function App() {
   let [shoes, shoes변경] = useState(shoesData);
@@ -19,6 +20,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail shoes={shoes}/>}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
     </Routes>
     </div>
   );

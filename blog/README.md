@@ -87,6 +87,55 @@ function 자식Component(props){
 > 부모에서 자식에게 전달할 때 인자는 여러개여도 된다.\
 그렇게 전달받은 자식에서는 props.전달받은이름 으로 접근하여 사용할 수 있다.
 
+### Redux
+> 상태관리 라이브러리!\
+props 전송 없이도 모든 컴포넌트가 그 state를 사용할 수 있도록 한다
+
+`npm install redux react-redux`
+```
+//index.js
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+    <Provider store={store}>
+      <App />
+    </Provider>
+```
+```
+//App.js
+import Cart from './Cart.js';
+...
+        <Route path="/cart" element={<Cart />}></Route>
+//
+```
+```
+//Cart.js
+function Cart(props){
+  return (
+    {props.state[0].name}
+  {/* stateToProps란 함수에서 state란 이름으로 return했으니  */}
+  )
+}
+function stateToProps(state){ //여기인자의 state는 Provider에서 인자로 넘긴 store 변수임.
+    return {
+      state : state //인자state(리덕스의 store)를 state란 이름으로 return
+    }
+  }
+  
+  export default connect(stateToProps)(Cart);
+  // stateToProps함수와 Cart.js를 이어준다
+```
++ JSX에서 Table 사용시 주의!\
+```<Table> 안에서 바로 <tr><td>가 아니라 <thead>나 <tbody>로 묶어줄것!```
+
+
+<!-- **컴포넌트에 변수로 전달하는 방법은 부모-자식 연결이 많아지면 어려워짐 그럴땐?**
+### React.createContext()
+공유할 변수 = React.createContext() 로 만들어두고
+공유받을 컴포넌트 안에서 전체를 한번 감싸서 전송한다
+```
+import {useContext} from 'react'; -->
+
 
 ### 배열에 원소 추가/삭제/변경
 > 수정할 원 배열 state를 깊은 복사 하고, 그 복사한 state에 대해서 수정할 내용을 반영시키고, 원 배열을 수정한 배열로 변경한다(setState)
@@ -200,13 +249,6 @@ let id = useParams();하면 console.log(id) >> {id:2} 이런식. destructing 해
 ```
 <Route path="/*" element={<App />}></Route>
 ```
-<!-- 근데 이러면 이동을안하는데.......?
-      <Navbar>
-       <Link to="/">Home</Link> 
-       <Link to="/detail">Detail</Link> 
-      </Navbar> 
-      이케하면 서로 걍 텍스트인거처럼 붙 -->
-
 
 ### useHistory
 > window.history와 유사하게 전후나 특정 주소로 이동하게 한다

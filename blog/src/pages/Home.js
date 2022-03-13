@@ -25,7 +25,7 @@ const Home = () => {
   let [loadingFail,setLoadingFail]=useState(false);
   let [스위치, 스위치변경] = useState(false);
   let [누른탭, 누른탭변경] = useState(0);
-
+  
   return (
     <div className="App">
       <Routes>
@@ -44,63 +44,63 @@ const Home = () => {
         </Nav.Item>
     </Nav>
     <TabContent 누른탭={누른탭} 스위치변경={스위치변경} />
-      <Navbar>
-       <Link to="/">Home</Link> 
-       <Link to="/detail">Detail</Link> 
-      </Navbar> 
-      <div className="black-nav">
-        <div style= { {color : 'white', fontSize : '30px'}}> 개발 Blog </div>
-      </div>
+    <Navbar>
+      <Link to="/">Home</Link> 
+      <Link to="/detail">Detail</Link> 
+    </Navbar> 
+    <div className="black-nav">
+      <div style= { {color : 'white', fontSize : '30px'}}> 개발 Blog </div>
+    </div>
   
-      <div className="list">
-        <h3> { title[0] } <span onClick={ ()=> {setThumb(thumb +1 )}}>👍🏻</span> {thumb} </h3>
-        <hr/>
-      </div>
+    <div className="list">
+      <h3> { title[0] } <span onClick={ ()=> {setThumb(thumb +1 )}}>👍🏻</span> {thumb} </h3>
+      <hr/>
+    </div>
+    {
+      title.map( (each,i) =>{
+        return(
+        <div className="list" key={i}>
+          <h3 onClick={()=>{setClickedTitle(each)}}> { each } </h3>
+          <p> YYMMDD 발행</p>
+          <hr/>
+        </div>
+        )
+      })
+    }
+    <button onClick={isit}>open</button>
+    { seeModal===true ? <Modal clickedTitle={clickedTitle}/> : null}
+    <input onChange={(e)=>{setNewInput(e.target.value)}} placeholder="Write New Title"></input>
+    <button onClick={()=>{
+      let newTitiles = [...title];
+      newTitiles.push(newInput);
+      setTitle(newTitiles);
+    }}>Save</button>
+
+    <div className='row'>
       {
-        title.map( (each,i) =>{
-         return(
-          <div className="list" key={i}>
-            <h3 onClick={()=>{setClickedTitle(each)}}> { each } </h3>
-            <p> YYMMDD 발행</p>
-            <hr/>
-          </div>
-         )
+        shoes.map(function(n,i){
+          return(
+            <Card shoes = {shoes[i]} i={i} key={i} />
+          )
         })
       }
-      <button onClick={isit}>open</button>
-      { seeModal===true ? <Modal clickedTitle={clickedTitle}/> : null}
-      <input onChange={(e)=>{setNewInput(e.target.value)}} placeholder="Write New Title"></input>
-      <button onClick={()=>{
-        let newTitiles = [...title];
-        newTitiles.push(newInput);
-        setTitle(newTitiles);
-      }}>Save</button>
+    </div>
+    {loading ===true ? <LoadingGif /> : null}
+    <button className='btn btn-primary' onClick={(e) => {
+      setLoading(true);
+        axios.get('https://codingapple1.github.io/shop/data2.json')
+        .then((result) => {
+          setLoading(false);
+          shoes변경([...shoes,...result.data])
+          setTimeout(()=> {
+            setLoaded(false);
+            e.target.hidden='true';  
+          },3000)
+        })
+        .catch(()=>{
 
-      <div className='row'>
-        {
-          shoes.map(function(n,i){
-            return(
-              <Card shoes = {shoes[i]} i={i} key={i} />
-            )
-          })
-        }
-      </div>
-      {loading ===true ? <LoadingGif /> : null}
-      <button className='btn btn-primary' onClick={(e) => {
-        setLoading(true);
-          axios.get('https://codingapple1.github.io/shop/data2.json')
-          .then((result) => {
-            setLoading(false);
-            shoes변경([...shoes,...result.data])
-            setTimeout(()=> {
-              setLoaded(false);
-              e.target.hidden='true';  
-            },3000)
-          })
-          .catch(()=>{
-
-          })
-      }}> 더보기 </button>
+        })
+    }}> 더보기 </button>
 
 
     </div>
