@@ -63,8 +63,11 @@ const arr2 = arr.map(( each )=> {return each*2});
 ```
 🚨Warning: Each child in a list should have a unique "key" prop.\
 반복을 사용한 HTML요소에는 꼭 key 파라미터를 주어야한다. key={}
-
-### props
+### default 파라미터
+함수 선언시 파라미터가 입력되지 않을 경우에 가질 파라미터를 부여하는 문법.\
+`function 함수명(파라미터명 = 지정할초기값)`\
+=(등호)를 통해 지정할 수 있다.
+## props
 > 자식 Component에서 부모 Component를 사용하기 위함
 ```
 // 부모
@@ -87,20 +90,27 @@ function 자식Component(props){
 > 부모에서 자식에게 전달할 때 인자는 여러개여도 된다.\
 그렇게 전달받은 자식에서는 props.전달받은이름 으로 접근하여 사용할 수 있다.
 
-### Redux
+## Redux
 > 상태관리 라이브러리!\
-props 전송 없이도 모든 컴포넌트가 그 state를 사용할 수 있도록 한다
+props 전송 없이도 **모든** 컴포넌트가 그 state를 사용할 수 있도록 한다
 
 `npm install redux react-redux`
 ```
 //index.js
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-
+let store = createStore( () => {
+  return[
+    {id:0, name: '멋진신발', quan:2}
+  ]
+})
     <Provider store={store}>
       <App />
     </Provider>
 ```
+redux에 데이터로 사용하려는 state를 createStore()로 만든다.\
+createStore()에 콜백함수가 들어가고 만드려는 state의 초기값을 return한다.\
+Provider에 만든 state를 props처럼 전달한다.
 ```
 //App.js
 import Cart from './Cart.js';
@@ -116,25 +126,51 @@ function Cart(props){
   {/* stateToProps란 함수에서 state란 이름으로 return했으니  */}
   )
 }
+
 function stateToProps(state){ //여기인자의 state는 Provider에서 인자로 넘긴 store 변수임.
     return {
       state : state //인자state(리덕스의 store)를 state란 이름으로 return
     }
   }
   
-  export default connect(stateToProps)(Cart);
-  // stateToProps함수와 Cart.js를 이어준다
+export default connect(stateToProps)(Cart);
+// stateToProps함수와 Cart.js를 이어준다
 ```
-+ JSX에서 Table 사용시 주의!\
-```<Table> 안에서 바로 <tr><td>가 아니라 <thead>나 <tbody>로 묶어줄것!```
+
+### reducer / dispatch
+>redux에서 데이터를 수정하려면\
+1 . **reducer** 함수를 만들고 데이터 수정 방법을 정의한다.\
+```
+reducer(초기값,액션){
+  return ()
+}
+```
+```
+//index.js
+let 초기값 = [{id : 0, name : '멋진신발', quan : 2}];
+function reducer(state = 초기값, 액션){
+  if (액션.type === '수량증가') {
+    let copy = [...state];
+    copy[0].quan++;
+    return copy
+  } else {
+    return state
+  }
+}
+let store = createStore(reducer);
+```
+```
+//Cart.js
+<td><button onClick={()=>{ props.dispatch({type: '수량증가'}) }}> + </button></td>
+```
+dispatch인자를 type에 '수량증가'로 주면 reducer에서 그에 맞는 조건이 있을 경우 해당 코드가 실행됨!
+
+2 . 수정할 때 **dispatch()** 함수를 호출하여 reducer 함수에 정의한대로 수정하도록 한다.
 
 
-<!-- **컴포넌트에 변수로 전달하는 방법은 부모-자식 연결이 많아지면 어려워짐 그럴땐?**
-### React.createContext()
-공유할 변수 = React.createContext() 로 만들어두고
-공유받을 컴포넌트 안에서 전체를 한번 감싸서 전송한다
-```
-import {useContext} from 'react'; -->
+
+
+
 
 
 ### 배열에 원소 추가/삭제/변경

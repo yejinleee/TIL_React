@@ -16,8 +16,10 @@ function Detail(props){
                     <p>{props.shoes[id].price}원</p>
                     <button className="btn btn-danger">주문하기</button> 
                 </div>
-                
             </div>    
+            <button onClick={()=>{ 
+                props.dispatch({type : '항목추가', payload : {id : 2, name : '새로운상품', quan : 1} }) 
+            }}>주문하기</button>
         </div>
     )
 }
