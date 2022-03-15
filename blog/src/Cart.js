@@ -3,6 +3,7 @@ import {Table} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 function Cart(props){
+  console.log("CART 프롭스",props);
   function 알람닫기(){
     return( ()=> { props.dispatch({type:'알람닫기'})})
   }
@@ -23,7 +24,10 @@ function Cart(props){
                             <td>{n.name}</td> 
                             <td>{n.name}</td>
                             <td>{n.quan}</td>
+                            <td><button onClick={()=>{ 
+                              props.dispatch({type: '항목추가', payload: {id:2, name:'새로운상품',quan:1}}) }}> 주문하기 </button></td>
                             <td><button onClick={()=>{ props.dispatch({type: '수량증가'}) }}> + </button></td>
+                            <td><button onClick={()=>{ props.dispatch({type: '수량감소'}) }}> - </button></td>
                         </tr>
                     )
                 })}
@@ -44,7 +48,7 @@ function stateToProps(state){
   }
 }
   
-  export default connect(stateToProps)(Cart);
+export default connect(stateToProps)(Cart);
 
 
 

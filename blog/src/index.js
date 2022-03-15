@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -9,11 +9,19 @@ import { combineReducers, createStore } from 'redux';
 
 let 초기값 = [{id : 0, name : '멋진신발', quan : 2}];
 function reducer(state = 초기값, 액션){
-  if (액션.type === '수량증가') {
+  if (액션.type === '항목추가'){
+    let copy = [...state];
+    copy.push(액션.payload);
+    return copy
+  } else  if (액션.type === '수량증가') {
     let copy = [...state];
     copy[0].quan++;
     return copy
-  } else {
+  } else  if (액션.type === '수량감소') {
+    let copy = [...state];
+    copy[0].quan--;
+    return copy
+  }else {
     return state
   }
 }

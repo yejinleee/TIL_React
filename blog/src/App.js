@@ -13,6 +13,7 @@ import Cart from './Cart.js';
 function App() {
   let [shoes, shoes변경] = useState(shoesData);
 
+  let a=1;
   return (
     <div className="App">
       <Routes>
@@ -20,7 +21,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail shoes={shoes}/>}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/cart" element={<Cart a={a}/>}></Route>
     </Routes>
     </div>
   );
