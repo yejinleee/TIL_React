@@ -90,6 +90,34 @@ function 자식Component(props){
 > 부모에서 자식에게 전달할 때 인자는 여러개여도 된다.\
 그렇게 전달받은 자식에서는 props.전달받은이름 으로 접근하여 사용할 수 있다.
 
+### 조건문
+### if
+* *JSX 안에서는 if문 불가능!!!
+* function 안에서 return을 만나면 그 이하 코드 실행 X
+### 삼항연산자
+JSX안에서 조건문 용도로 사용\
+{ 조건 ? 참 이면 보여줄 HTML : 거짓 이면 보여줄 HTML}
+```
+  <div>
+    { 1 ===1 ? <p> 참</p> : <p>거짓</p>}
+  </div>
+```
+### &&연산자
+```
+  1 === 1 && <p>참이면 보여줄 HTML </p>
+  ```
+### switch / case
+switch(검사할 변수명) { }\
+if - else if - else if - else 길게 이어지는 것 보다 가독성 좋아짐
+```
+switch (액션.type){
+  case '수량증가':
+    return 수량증가된state;
+  case '수량감소':
+    return 수량감소된state;
+  default :
+    return state;
+}
 ## Redux
 > 상태관리 라이브러리!\
 props 전송 없이도 **모든** 컴포넌트가 그 state를 사용할 수 있도록 한다
@@ -375,3 +403,59 @@ axios.get('~~.json')
   console.log(error)
 })
 ```
+
+
+## 성능향상 / 유지관리
+### 함수나 오브젝트는 변수에 담아 컴포넌트 바깥에 저장해두자
+### lazy import
+App.js에서 처럼 많은 import가 필요할 때, 필요한 컴포넌트만 import하도록 지정
+`import React, {lazy, Suspense} from 'react';`
+```
+// 기존 import
+// import Detail from './Detail.js';
+// lazy import
+let Detail = lazy( ()=>{ return import('./Detail.js') } );
+
+//해당 컴포넌트 호출할때
+  <Suspense fallback={ <div>로딩중입니다~!</div> }>
+    <Detail/>
+  </Suspense>
+
+``` 
+### memo
+컴포넌트는 관련된 state, props가 변경되면 항상 자동 재렌더링! \
+부모 컴포넌트의 props가 변경됐을 때 자식 컴포넌트들도 재렌더링 되는데...\
+속도 저하 등 문제가 있기 때문에!
+` import React, { memo} from 'react';`
+```
+function Cart(){
+  return (
+    <Parent 이름="존박" 나이="20"/>
+  )
+}
+
+function Parent(props){
+  return (
+    <div>
+      <Child1 이름={props.이름}/>
+      <Child2 나이={props.나이}/>
+    </div>
+  )
+}
+function Child1(){
+  useEffect( ()=>{ console.log('렌더링됨1') } );
+  return <div>1111</div>
+}
+let Child2 = memo(function(){
+  useEffect( ()=>{ console.log('렌더링됨2') } );
+  return <div>2222</div>
+})
+```
+Child1에서 '이름'을 변경해도 Child2에서 '나이'는 관련없기때문에 재렌더링 되지 않음! \
+컴포넌트가 너무 크거나 잦은 재렌더링을 막을 때 사용\
+하지만 기존과 바뀐 걸 비교하는 연산이 추가되서 props가 크고 복잡하면 부담이긴 하다.
+
+<!-- 더알아보자-! -->
+<!-- https://poiemaweb.com/es6-block-scope 
+let은 중복선언이 안됨. 블록스코프. let,var,const 차이
+호이스팅 :  -->
