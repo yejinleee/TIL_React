@@ -17,7 +17,7 @@ return 안에는 크게 하나의 태그가 감싸고 있어야 함.
 ### 데이터 바인딩
 서버에서 받아온 데이터를 화면에 보여줌\
 기존 JS 방식 : document.getElementId().innerText('') 보다 간편하게 구현가능\
-**중괄호** {변수명, 함수 등}\
+**중괄호** {변수명, 함수 등}
 * img태그 src속성\
 <img src="~~~.jpg"\> 보다 간편하게 \
 import img1 from './img.png'; \
@@ -26,13 +26,13 @@ import img1 from './img.png'; \
 style={ obj형 스타일 속성 : "값", }\
 ->괄호 안의 값을 변수로 지정해두고 호출하는 것이 더 간결
 
-### state
->리액트의 데이터 저장공간
+### useState
+> state : 리액트의 데이터 저장공간
 
 `import React, {useState} from 'react';`\
-`let [변수명, 변경함수] = useStaet("초기값");`
+`let [변수명, 변경함수] = useState("초기값");`
 
-**새로고침 없이** 변경된 내용을 반영할 수 있다 !!
+**새로고침 없이** 변경된 내용을 반영할 수 있다 !! \
 단, state를 완전히 대체함.
 
 ## Event
@@ -118,6 +118,7 @@ switch (액션.type){
   default :
     return state;
 }
+```
 ## Redux
 > 상태관리 라이브러리!\
 props 전송 없이도 **모든** 컴포넌트가 그 state를 사용할 수 있도록 한다
@@ -247,7 +248,7 @@ import myFunction from './exportFile.js';
 * 설치\
 `npm install react-router-dom`
 
-* index.js \
+* index.js 
 ```
 import { BrowserRouter } from 'react-router-dom';
 
@@ -293,7 +294,7 @@ ReactDOM.render(
 뒤에 오는 값에 따라 다른 화면을 보여주려 한다면??\
 >변수 = useParam();은 url의 모든 파라미터를 저장함
 
-*Detail.js
+* Detail.js
 ```
     let {id} = useParams();
 ```
@@ -425,7 +426,7 @@ let Detail = lazy( ()=>{ return import('./Detail.js') } );
 ### memo
 컴포넌트는 관련된 state, props가 변경되면 항상 자동 재렌더링! \
 부모 컴포넌트의 props가 변경됐을 때 자식 컴포넌트들도 재렌더링 되는데...\
-속도 저하 등 문제가 있기 때문에!
+속도 저하 등 문제가 있기 때문에! \
 ` import React, { memo} from 'react';`
 ```
 function Cart(){
