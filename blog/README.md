@@ -21,7 +21,7 @@ return 안에는 크게 하나의 태그가 감싸고 있어야 함.
 * img태그 src속성\
 <img src="~~~.jpg"\> 보다 간편하게 \
 import img1 from './img.png'; \
- <img src={img1}"\>
+ <img src="{img1}"\>
 * stle 속성\
 style={ obj형 스타일 속성 : "값", }\
 ->괄호 안의 값을 변수로 지정해두고 호출하는 것이 더 간결
@@ -38,20 +38,6 @@ style={ obj형 스타일 속성 : "값", }\
 ## Event
 ``onClick={실행할함수}`` or ``onClick={ () =>{ 실행할내용}}`` 
 
-## Component
-> 리액트의 장점!\
-긴 HTML 단락을 컴포넌트화 하여 호출하면 관리하기 편하고 코드가 간결해진다.\
-이름은 보통 대문자로 시작\
-return 값은 가장 크게 <></>로 묶어 주어야함.
-
-> Component화 하면 좋은 HTML 단락은?\
-반복출현 하는 코드\
-자주변경 되는 코드\
-다른 페이지를 만들때도 유용
-
-> 하지만, state 복잡해짐.\
-다른 func,컴포넌트에서 선언된 변수 참조 하려면 props 를 사용해야 한다.
-
 ## 문법
 ### 삼항 연산자
 `조건 ? 참일때 실행할 코드 : 거짓일때 실행할 코드`
@@ -67,28 +53,6 @@ const arr2 = arr.map(( each )=> {return each*2});
 함수 선언시 파라미터가 입력되지 않을 경우에 가질 파라미터를 부여하는 문법.\
 `function 함수명(파라미터명 = 지정할초기값)`\
 =(등호)를 통해 지정할 수 있다.
-## props
-> 자식 Component에서 부모 Component를 사용하기 위함
-```
-// 부모
-function 부모Component(){
-    let ]부모에있는state,setState] = useState('부모로부터');
-    return(
-        <>
-            <자식Component 전송할이름={state명}>
-        </>
-    )
-}
-
-//자식
-function 자식Component(props){
-    return(
-        <div>props.전송할이름</div>
-    )
-}
-```
-> 부모에서 자식에게 전달할 때 인자는 여러개여도 된다.\
-그렇게 전달받은 자식에서는 props.전달받은이름 으로 접근하여 사용할 수 있다.
 
 ### 조건문
 ### if
@@ -119,6 +83,52 @@ switch (액션.type){
     return state;
 }
 ```
+
+### 배열에 원소 추가/삭제/변경
+> 수정할 원 배열 state를 깊은 복사 하고, 그 복사한 state에 대해서 수정할 내용을 반영시키고, 원 배열을 수정한 배열로 변경한다(setState)
+* 배열.unshift(추가할 원소) : 맨 앞에 원소 추가
+* 배열.push(추가할 원소) : 맨 뒤에 원소 추가
+* 배열.shift() : 맨 앞의 원소 제거
+* 배열.pop() : 맨 뒤의 원소 제거
+
+## Component
+> 리액트의 장점!\
+긴 HTML 단락을 컴포넌트화 하여 호출하면 관리하기 편하고 코드가 간결해진다.\
+이름은 보통 대문자로 시작\
+return 값은 가장 크게 <></>로 묶어 주어야함.
+
+> Component화 하면 좋은 HTML 단락은?\
+반복출현 하는 코드\
+자주변경 되는 코드\
+다른 페이지를 만들때도 유용
+
+> 하지만, state 복잡해짐.\
+다른 func,컴포넌트에서 선언된 변수 참조 하려면 props 를 사용해야 한다.
+
+## props
+> 자식 Component에서 부모 Component를 사용하기 위함
+
+```
+// 부모
+function 부모Component(){
+    let ]부모에있는state,setState] = useState('부모로부터');
+    return(
+        <>
+            <자식Component 전송할이름={state명}>
+        </>
+    )
+}
+
+//자식
+function 자식Component(props){
+    return(
+        <div>props.전송할이름</div>
+    )
+}
+```
+> 부모에서 자식에게 전달할 때 인자는 여러개여도 된다.\
+그렇게 전달받은 자식에서는 props.전달받은이름 으로 접근하여 사용할 수 있다.
+
 ## Redux
 > 상태관리 라이브러리!\
 props 전송 없이도 **모든** 컴포넌트가 그 state를 사용할 수 있도록 한다
@@ -195,7 +205,7 @@ let store = createStore(reducer);
 ```
 dispatch인자를 type에 '수량증가'로 주면 reducer에서 그에 맞는 조건이 있을 경우 해당 코드가 실행됨!
 
-2 . 수정할 때 **dispatch()** 함수를 호출하여 reducer 함수에 정의한대로 수정하도록 한다.
+> 2 . 수정할 때 **dispatch()** 함수를 호출하여 reducer 함수에 정의한대로 수정하도록 한다.
 
 ### useReducer
 >const [상태 객체, dispatch 함수] = useReducer(reducer 함수, 초기 상태, 초기 함수)
@@ -209,15 +219,6 @@ const [state, dispatch] = useReducer(reducer, initialState);
 ```
 
 
-
-
-
-### 배열에 원소 추가/삭제/변경
-> 수정할 원 배열 state를 깊은 복사 하고, 그 복사한 state에 대해서 수정할 내용을 반영시키고, 원 배열을 수정한 배열로 변경한다(setState)
-* 배열.unshift(추가할 원소) : 맨 앞에 원소 추가
-* 배열.push(추가할 원소) : 맨 뒤에 원소 추가
-* 배열.shift() : 맨 앞의 원소 제거
-* 배열.pop() : 맨 뒤의 원소 제거
 
 ## import / export
 내보낼파일.js 에서 export문으로 함수, 객체, 원시값을 내보냄
@@ -263,7 +264,7 @@ ReactDOM.render(
 * App.js \
 `import { Link, Route, Switch } from 'react-router-dom';`
 
-🚨A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.\
+🚨A <Route\> is only ever to be used as the child of <Routes\> element, never rendered directly. Please wrap your <Route\> in a <Routes\>.\
 💡react-router-dom 라이브러리의 업데이트된 문법을 적용한다. <a href="https://reactrouter.com/docs/en/v6/getting-started/overview#configuring-routes">공식문서</a>\
 -- > 1. 모든 <Route\>를 전체적으로 <Routes\>가 감싸줘야한다.
 ```
@@ -455,22 +456,3 @@ let Child2 = memo(function(){
 Child1에서 '이름'을 변경해도 Child2에서 '나이'는 관련없기때문에 재렌더링 되지 않음! \
 컴포넌트가 너무 크거나 잦은 재렌더링을 막을 때 사용\
 하지만 기존과 바뀐 걸 비교하는 연산이 추가되서 props가 크고 복잡하면 부담이긴 하다.
-
-<!-- 더알아보자-! -->
-<!-- https://poiemaweb.com/es6-block-scope 
-let은 중복선언이 안됨. 블록스코프. let,var,const 차이
-호이스팅 :  -->
-
-|  |var|let|const|
----|------|---|---|
-중복선언|O|X|X
-재할당(수정)|O|O|X
-존재범위|function|{}:블록|{}:블록
-호이스팅|O
-단, const로 선언된 변수가 object형일 경우 object 내 데이터에 대해서는 변경 가능
-
-* 호이스팅(Hosting)\
-: 함수 내부에 있는 선언들을 모두 끌어올려 해당 함수 유효 범위의 최상단에 선언하는 것을 뜻함. (실제로 코드가 끌어올려지는 것이 아닌, 자바스크립트 Parser가 함수 실행 전 해당 함수를 한 번 훑는 과정에서 내부적으로 끌어올려 처리하는 것을 뜻하며 실제 메모리에서는 변화가 없음) => 미리 선언문을 실행해둔다고 이해하면 됨.
-  -  var,함수선언문( function ~(){}) : 호이스팅 됨
-  - let,const,함수표현식(car ~ =function --(){})
-함수표현식을 사용하거나 let 또는 const 로 변수를 선언하는 경우, 자바스크립트 내부에서는 코드 실행 전 변수 선언만 해둘뿐 초기화는 코드 실행 과정에서 변수 선언문을 만났을 때 수행함. 그렇기 때문에 호이스팅이 발생하기는 하지만, 값을 참조할 수 없기 때문에 동작하지 않는 것처럼 보이는 것임.
