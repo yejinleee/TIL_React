@@ -71,8 +71,9 @@ JSX안에서 조건문 용도로 사용\
   1 === 1 && <p>참이면 보여줄 HTML </p>
   ```
 ### switch / case
-switch(검사할 변수명) { }\
-if - else if - else if - else 길게 이어지는 것 보다 가독성 좋아짐
+>switch(검사할 변수명) { }
+
+if - else if - else if - else 길게 이어지는 것 보다 가독성이 좋다.
 ```
 switch (액션.type){
   case '수량증가':
@@ -224,20 +225,20 @@ const [state, dispatch] = useReducer(reducer, initialState);
 내보낼파일.js 에서 export문으로 함수, 객체, 원시값을 내보냄
 다른 파일에서 import 문으로 가져올 수 있음.
 * export named\
-여러 값을 내보낼 때 유용!\
-가져갈 때는 내보낸 이름과 동일한 이름 사용
+**여러개** 내보낼 수 있다, 단 { 중괄호 } 안에 묶어서 주고받기!\
+export한 이름과 동일한 이름으로 import 해야 한다.
 >//exportFile.js \
 export {myFunction, myVariable}; \
 //importFile.js \
-import myFunction from './exportFile.js';
+import {myFunction, myVariable} from './exportFile.js';
 
 * export default\
-단일 값 \
-import하는 파일에서 네이밍 가능
+한 파일에 하나만 적자!
+해당 파일에서 기본으로 export하기 때문에 import하는 파일에서 **자유롭게 네이밍** 가능
 >//exportFile.js \
-export default myFunction \
+export default myFunc \
 //importFile.js \
-import myFunction from './exportFile.js';
+import **myFuncName** from './exportFile.js';
 
 ## 페이지 이동
 >상세 주소에 따라 다른 뷰를 보여주는 것 \
