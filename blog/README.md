@@ -112,7 +112,7 @@ return 값은 가장 크게 <></>로 묶어 주어야함.
 ```
 // 부모
 function 부모Component(){
-    let ]부모에있는state,setState] = useState('부모로부터');
+    let [부모에있는state,setState] = useState('부모로부터');
     return(
         <>
             <자식Component 전송할이름={state명}>
