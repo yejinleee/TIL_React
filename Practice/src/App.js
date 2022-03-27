@@ -1,24 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {useRef, useState} from 'react'; 
 
 function App() {
+  const [stateValue, setStateValue] = useState(0);
+  const refValue = useRef(null);
+  console.log(`랜더링... count: ${stateValue}`);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <p>{stateValue}번 클릭하셨습니다.</p>
+      <button onClick={() => {setStateValue(stateValue+1);
+        console.log(stateValue);
+      }}>setStateValue</button>
+      <button onClick={() => {
+        refValue.current+=1;
+        console.log(refValue);
+        }}>setStateValue</button>
+    </>
   );
 }
 
