@@ -1,15 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+
 import App from './App';
 import UseRef from './UseRef'
-import reportWebVitals from './reportWebVitals';
+import Redux from './Redux'
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+const reduxState = 100;
+function reducer(state = reduxState, action){
+  return state
+}
+let store = createStore(reducer)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <App />
     <UseRef />
-  </React.StrictMode>,
+    <Provider store={store}>
+      <Redux />
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
