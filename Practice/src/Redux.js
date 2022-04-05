@@ -1,6 +1,6 @@
 import React from 'react'; 
 import {connect, useDispatch, useSelector} from 'react-redux';
-
+import UseReducer from './UseReducer';
 // useSelector -------------------------------------
 
 function Redux(){
@@ -13,7 +13,7 @@ function Redux(){
             받아온 redux state : {gotReduxState} (useSelector)
             <button onClick={()=>{ dispatch( {type:'plus'} ) }}> PLUS </button>
             <button onClick={()=>{ dispatch( {type:'addPayload', payload:3} ) }}> AddPayload </button>
-            
+            <UseReducer />
         </div>
     )
 }
@@ -30,6 +30,7 @@ export default Redux;
 //             받아온 redux state : {gotReduxState} (useSelector)
 //             <br></br>
 //             받아온 redux state : {props.gotReduxState} (connect)
+//             <button onClick={()=>{props.dispatch({type: 'plus'}) }}> PLUS </button>
 //         </div>
 //     )
 // }
