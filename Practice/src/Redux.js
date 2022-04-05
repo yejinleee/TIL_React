@@ -1,39 +1,43 @@
 import React from 'react'; 
-import {connect, useSelector} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 
 // useSelector -------------------------------------
 
-// function Redux(){
+function Redux(){
 
-//     const gotReduxState = useSelector( (state) => state);
+    const gotReduxState = useSelector( (state) => state.reducer);
+    const dispatch = useDispatch();
 
-//     return(
-//         <div>
-//             받아온 redux state : {gotReduxState} (useSelector)
-//         </div>
-//     )
-// }
-
-// export default Redux;
-
-
-// connect -------------------------------------
-function Redux(props){
-    const gotReduxState = useSelector( (state) => state);
-
-    return (
+    return(
         <div>
             받아온 redux state : {gotReduxState} (useSelector)
-            <br></br>
-            받아온 redux state : {props.gotReduxState} (connect)
+            <button onClick={()=>{ dispatch( {type:'plus'} ) }}> PLUS </button>
+            <button onClick={()=>{ dispatch( {type:'addPayload', payload:3} ) }}> AddPayload </button>
+            
         </div>
     )
 }
 
-function stateToProps(props){ 
-    return {
-        gotReduxState : props
-    }
-}
+export default Redux;
 
-export default connect(stateToProps)(Redux);
+
+// connect -------------------------------------
+// function Redux(props){
+//     const gotReduxState = useSelector( (state) => state);
+
+//     return (
+//         <div>
+//             받아온 redux state : {gotReduxState} (useSelector)
+//             <br></br>
+//             받아온 redux state : {props.gotReduxState} (connect)
+//         </div>
+//     )
+// }
+
+// function stateToProps(props){ 
+//     return {
+//         gotReduxState : props
+//     }
+// }
+
+// export default connect(stateToProps)(Redux);

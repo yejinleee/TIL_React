@@ -10,12 +10,39 @@ import Redux from './Redux'
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { combineReducers } from 'redux';
 
 const reduxState = 100;
 function reducer(state = reduxState, action){
-  return state
+  if (action.type === "plus"){
+    state++;
+    return state 
+  }
+  else if(action.type === "addPayload"){
+    state = state+action.payload;
+    return state 
+  }
+  else{
+    return state
+  }
 }
-let store = createStore(reducer)
+
+const reduxState2 = 200;
+function reducer2(state = reduxState2, action){
+  if (action.type === "plus"){
+    state++;
+    return state 
+  }
+  else if(action.type === "addPayload"){
+    state = state+action.payload;
+    return state 
+  }
+  else{
+    return state
+  }
+}
+
+let store = createStore(combineReducers({reducer, reducer2}));
 
 ReactDOM.render(
   <BrowserRouter>
