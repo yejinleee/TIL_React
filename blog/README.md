@@ -75,7 +75,7 @@ JSX안에서 조건문 용도로 사용\
 
 if - else if - else if - else 길게 이어지는 것 보다 가독성이 좋다.
 ```
-switch (액션.type){
+switch (action.type){
   case '수량증가':
     return 수량증가된state;
   case '수량감소':
@@ -131,8 +131,8 @@ function 자식Component(props){
 그렇게 전달받은 자식에서는 props.전달받은이름 으로 접근하여 사용할 수 있다.
 
 ## Redux
-> 상태관리 라이브러리!\
-props 전송 없이도 **모든** 컴포넌트가 그 state를 사용할 수 있도록 한다
+> * 상태관리 라이브러리!
+> * props 전송 없이도 **모든** 컴포넌트가 그 state를 사용할 수 있도록 한다
 
 `npm install redux react-redux`
 ```
@@ -151,6 +151,7 @@ let store = createStore( () => {
 redux에 데이터로 사용하려는 state를 createStore()로 만든다.\
 createStore()에 콜백함수가 들어가고 만드려는 state의 초기값을 return한다.\
 Provider에 만든 state를 props처럼 전달한다.
+
 ```
 //App.js
 import Cart from './Cart.js';
@@ -178,19 +179,24 @@ export default connect(stateToProps)(Cart);
 ```
 
 ### reducer / dispatch
->redux에서 데이터를 수정하려면\
-1 . **reducer** 함수를 만들고 데이터 수정 방법을 정의한다.\
+
+>redux에서 데이터를 수정하려면
+
+>1 . **reducer** 함수를 만들고 데이터 수정 방법을 정의한다.
 ```
-reducer(초기값,액션){
+reducer(초기값,action){
   return ()
 }
 ```
-액션 : 데이터 수정을 위한 정보를 가진다. dispatch 안의 모든 객체들을 가짐. 주로 type 값 객체(문자열 등) 형태 사용하여 분기 만듦
+action\
+\- 데이터 수정을 위한 정보를 가진다.\
+\- dispatch 안의 모든 객체들을 가짐(action.type, action.payload 등).\
+\- 주로 type 값 객체(문자열 등) 형태 사용하여 분기 만듦
 ```
 //index.js
 let 초기값 = [{id : 0, name : '멋진신발', quan : 2}];
-function reducer(state = 초기값, 액션){
-  if (액션.type === '수량증가') {
+function reducer(state = 초기값, action){
+  if (action.type === '수량증가') {
     let copy = [...state];
     copy[0].quan++;
     return copy
@@ -200,13 +206,25 @@ function reducer(state = 초기값, 액션){
 }
 let store = createStore(reducer);
 ```
+> 2 . 수정할 때 **dispatch()** 함수를 호출하여 reducer 함수에 정의한대로 수정하도록 한다.
 ```
 //Cart.js
 <td><button onClick={()=>{ props.dispatch({type: '수량증가'}) }}> + </button></td>
 ```
-dispatch인자를 type에 '수량증가'로 주면 reducer에서 그에 맞는 조건이 있을 경우 해당 코드가 실행됨!
+dispatch인자를 type에 '수량증가'로 주면 reducer에서 그에 맞는 action 조건이 있을 경우 해당 코드가 실행됨!
 
-> 2 . 수정할 때 **dispatch()** 함수를 호출하여 reducer 함수에 정의한대로 수정하도록 한다.
+### 데이터 수정 : dispatch payload
+```
+if (action.type === '항목추가') {
+    let copy = [...state];
+    copy.push(action.payload);
+    return copy 
+```
+```
+    props.dispatch({ type: '항목추가', payload: {id: 2, name: '새로운 상품', quantity: 1};
+```
+dispatch에 payload 인자 값으로 데이터를 실어보낼 수 있다.
+
 
 ### useReducer
 >const [상태 객체, dispatch 함수] = useReducer(reducer 함수, 초기 상태, 초기 함수)
