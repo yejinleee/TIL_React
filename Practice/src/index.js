@@ -11,6 +11,8 @@ import Redux from './Redux'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
+import Wrapper from './Wrapper';
+import Inner from './Inner';
 
 const reduxState = 100;
 function reducer(state = reduxState, action){
@@ -42,6 +44,7 @@ function reducer2(state = reduxState2, action){
   }
 }
 
+// let store = createStore(reducer); //reducer하나일때
 let store = createStore(combineReducers({reducer, reducer2}));
 
 ReactDOM.render(
@@ -51,6 +54,9 @@ ReactDOM.render(
     <Provider store={store}>
       <Redux />
     </Provider>
+    <Wrapper>
+      <Inner/>
+    </Wrapper>
   </BrowserRouter>,
   document.getElementById('root')
 );
