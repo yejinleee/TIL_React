@@ -14,6 +14,7 @@ import { combineReducers } from 'redux';
 import Wrapper from './Wrapper';
 import Inner from './Inner';
 import InputSample from './InputSample';
+import ListApp from './list/ListApp';
 
 const reduxState = 100;
 function reducer(state = reduxState, action){
@@ -59,6 +60,7 @@ ReactDOM.render(
       <Inner/>
     </Wrapper>
     <InputSample />
+    <ListApp />
   </BrowserRouter>,
   document.getElementById('root')
 );
