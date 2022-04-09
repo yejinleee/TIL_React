@@ -20,12 +20,12 @@ function ListApp() {
         email: 'username3@example.com'
       }
     ]);
-
+    
     return (
         <>
         <div style={{border : '1px solid blue'}}>
             <CreateUser users={users} setUsers={setUsers}/>
-            <UserList users={users} />
+            <UserList users={users} setUsers={setUsers}/>
         </div>
         </>
     );
