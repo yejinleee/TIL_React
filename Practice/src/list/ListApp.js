@@ -7,17 +7,20 @@ function ListApp() {
       {
         id: 1,
         username: 'username1',
-        email: 'username1@example.com'
+        email: 'username1@example.com',
+        active : true
       },
       {
         id: 2,
         username: 'username2',
-        email: 'username2@example.com'
+        email: 'username2@example.com',
+        active : false
       },
       {
         id: 3,
         username: 'username3',
-        email: 'username3@example.com'
+        email: 'username3@example.com',
+        active : false
       }
     ]);
     
