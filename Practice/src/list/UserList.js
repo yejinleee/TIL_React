@@ -10,11 +10,12 @@ function UserList({users,setUsers}) {
 
     const onRemove = useCallback( id=>{
         setUsers(users.filter(user => user.id !== id));
-    }, [users]);
+        }, [users,setUsers]
+    );
     const onToggle= useCallback( (id)=>{
         setUsers(users.map(user=>
              user.id === id ? {...user,active:!user.active} : user))
-    }, [users]
+        }, [users,setUsers]
     );
     return(
         <>
