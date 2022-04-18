@@ -16,6 +16,8 @@ import Inner from './Inner';
 import InputSample from './InputSample';
 import ListApp from './list/ListApp';
 
+import KakaoApp from './KakaoMaps/KakaoApp';
+
 const reduxState = 100;
 function reducer(state = reduxState, action){
   if (action.type === "plus"){
@@ -52,7 +54,8 @@ let store = createStore(combineReducers({reducer, reducer2}));
 ReactDOM.render(
   <BrowserRouter>
     <App />
-    <UseRef />
+    <KakaoApp />
+    {/* <UseRef />
     <Provider store={store}>
       <Redux />
     </Provider>
@@ -60,7 +63,7 @@ ReactDOM.render(
       <Inner/>
     </Wrapper>
     <InputSample />
-    <ListApp />
+    <ListApp /> */}
   </BrowserRouter>,
   document.getElementById('root')
 );
