@@ -8,8 +8,10 @@ function KakaoApp() {
     useEffect( ()=>{
         makeMap();
     },[text])
-    
+
+    const [result,setResult] = useState({});
     const makeMap =()=>{
+
         const { kakao } = window;
         const options = { //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(37.81452005, 127.5107394), //지도의 중심좌표.
@@ -23,26 +25,28 @@ function KakaoApp() {
 
         // 키워드로 장소를 검색합니다
         ps.keywordSearch(text, placesSearchCB); 
+
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
         function placesSearchCB (data, status, pagination) {
+            setResult({...data});
+
             if (status === kakao.maps.services.Status.OK) {
 
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                 // LatLngBounds 객체에 좌표를 추가합니다
                 var bounds = new kakao.maps.LatLngBounds();
-                console.log(data);
                 for (var i=0; i<data.length; i++) {
                     makeMarker(data[i]);    
                     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
                 }       
-                console.log(bounds);
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
                 map.setBounds(bounds);
             } 
         }
+
+
         var infowindow = new kakao.maps.InfoWindow({zIndex:1});
         //전역으로 선언해두어야 open close 된다!
-        
         function makeMarker(place){
             // 마커가 표시될 위치입니다 
             var markerPosition  = new kakao.maps.LatLng(place.y, place.x); 
@@ -69,23 +73,26 @@ function KakaoApp() {
         //     makeMarker(each);
         // })
 
-        
+
     }
+
     const onChange = (e) => {
-        setText(e.target.value);
+        e.preventDefault(); 
+        setText(e.target.inputvalue.value)
+        e.target.inputvalue.value="";
       };
+
     return (
         <>
-            <form onSubmit={(e)=>{
-                e.preventDefault(); 
-                console.log(e.target.inputvalue.value); 
-                setText(e.target.inputvalue.value)
-                e.target.inputvalue.value="";
-                }}>
+            {/* {console.log("검색 결과 : ",result[0].address_name)} */}
+            <form onSubmit={onChange}>
                 <input name="inputvalue" placeholder="장소입력!"  />
             </form>
+
             {/* <div>                <b>값: {text}</b>            </div> */}
             <div ref={container} id="map" style={{width:"500px", height:"400px"}}> </div>
+            {Object.keys(result).length!==0 &&
+            result[0].address_name}
         </>
     );
 }
