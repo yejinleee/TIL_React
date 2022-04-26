@@ -10,6 +10,10 @@ function KakaoApp() {
     },[text])
 
     const [result,setResult] = useState({});
+    useEffect(()=>{
+        console.log("result",result);
+
+    },[result])
     const makeMap =()=>{
 
         const { kakao } = window;
@@ -18,7 +22,6 @@ function KakaoApp() {
             level: 3 //지도의 레벨(확대, 축소 정도)
         };
         var map = new kakao.maps.Map(container.current, options);
-
         // 검색결과---------
         // 장소 검색 객체를 생성합니다
         var ps = new kakao.maps.services.Places(); 
@@ -28,7 +31,9 @@ function KakaoApp() {
 
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
         function placesSearchCB (data, status, pagination) {
-            setResult({...data});
+            setResult(()=>{
+                return {...data};    
+            });
 
             if (status === kakao.maps.services.Status.OK) {
 
@@ -84,7 +89,6 @@ function KakaoApp() {
 
     return (
         <>
-            {/* {console.log("검색 결과 : ",result[0].address_name)} */}
             <form onSubmit={onChange}>
                 <input name="inputvalue" placeholder="장소입력!"  />
             </form>
@@ -93,6 +97,7 @@ function KakaoApp() {
             <div ref={container} id="map" style={{width:"500px", height:"400px"}}> </div>
             {Object.keys(result).length!==0 &&
             result[0].address_name}
+            {/* {result} */}
         </>
     );
 }

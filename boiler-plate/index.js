@@ -2,7 +2,7 @@ const express = require('express') //express 모듈 가져오기
 const app = express()
 const port = 3000 //포트번호설정
 
-const bodyParser = require('body-parser');
+const config = require('./config/key');
 const { User  } =require('./models/User');
 
 // 정보를 parse해서 json형식으로
@@ -11,13 +11,13 @@ app.use(express.urlencoded({extended: true}));
 
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb+srv://yejin9487:asdf1234@boilerplate.lmffs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{
+mongoose.connect(config.mongoURI,{
     // useUnifiedTopology : true, useCreateIndex: true, useFindAndModify :false
 }).then( ()=> console.log("MongoDB Connected ... "))
 .catch( err => console.log('ERROR발생 !',err))
 
 app.get('/', (req, res) => {
-  res.send('Hello Worl녕d!')
+  res.send('Hello World!')
 })
 
 app.post('/register', (req,res)=>{
