@@ -16,7 +16,7 @@ import Inner from './Inner';
 import InputSample from './InputSample';
 import ListApp from './list/ListApp';
 
-import KakaoApp from './KakaoMaps/KakaoApp';
+import KakaoMapApp from './KakaoMaps/KakaoMapApp';
 
 const reduxState = 100;
 function reducer(state = reduxState, action){
@@ -54,7 +54,7 @@ let store = createStore(combineReducers({reducer, reducer2}));
 ReactDOM.render(
   <BrowserRouter>
     <App />
-    <KakaoApp />
+    <KakaoMapApp />
     {/* <UseRef />
     <Provider store={store}>
       <Redux />

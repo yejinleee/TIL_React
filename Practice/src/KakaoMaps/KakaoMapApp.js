@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import GPDATA from './gapyeongun.json';
+import Login from '../KakaoLogin/Login';
 
-function KakaoApp() {
+function KakaoMapApp() {
+    
     const container = useRef(null); //훅스로 DOM 레퍼런스
     const [text, setText] = useState('구리역');
 
@@ -89,6 +91,7 @@ function KakaoApp() {
 
     return (
         <>
+            <Login/>
             <form onSubmit={onChange}>
                 <input name="inputvalue" placeholder="장소입력!"  />
             </form>
@@ -102,4 +105,4 @@ function KakaoApp() {
     );
 }
 
-export default KakaoApp;
+export default KakaoMapApp;
