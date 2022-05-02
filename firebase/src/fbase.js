@@ -16,10 +16,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const authService = getAuth();
-export default authService;
+export const authService = getAuth(app);
 
-
-// const app = initializeApp(firebaseConfig);
-// export const authService = getAuth();
-//로하면 'default'없단 에러? 뜸
+// export default authService;
+// export const auth = getAuth();
