@@ -7,7 +7,7 @@ import Profile from '../routes/Profile';
 import Navigation from './Navigation';
 
 const Router=({isLoggedIn})=> {
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
     return(
         <HashRouter>
             {isLoggedIn && <Navigation />}

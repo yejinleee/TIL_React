@@ -29,7 +29,7 @@ const Auth =()=>{
             } else {
                 data = await signInWithEmailAndPassword(auth,email, password); //authService 가능
             };
-            console.log(data);
+            console.log('유저식별id',data.user.uid);
         } catch(error){
             setError(error.message);
         }
@@ -44,7 +44,7 @@ const Auth =()=>{
             provider = new GithubAuthProvider();
         }
         const data = await signInWithPopup(authService, provider); //auth 가능
-        console.log(data);
+        console.log('유저식별id',data.user.uid);
     }
     return(
         <div>
