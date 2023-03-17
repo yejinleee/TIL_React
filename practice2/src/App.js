@@ -1,18 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
 
 function App() {
+  const [toggleOnOff, setToggleOnOff] = useState(Array.from({length: 3}, () => false)); //(3) [false, false, false]
 
+  const handleOnclick = (e,idx) => {
+    const newOnOff = Array.from({length: 3}, () => false);
+    newOnOff[idx]=true;
+    setToggleOnOff(newOnOff)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-
-        </p>
-        
-      </header>
+      {
+          [1,2,3].map((e,idx) => (
+            <div key={idx}>
+              <button className="toggle" onClick = {e => handleOnclick(e,idx)}>toggle</button>
+              <div className="box" style={{width : '100px', height:'100px', backgroundColor:toggleOnOff[idx] ? 'red' : 'grey'}}>?</div>
+            </div>
+          ))
+      }
     </div>
   );
 }
