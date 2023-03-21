@@ -1,24 +1,15 @@
 import './App.css';
 import {useState} from 'react';
+import useWindowWidth from './hooks/useWindowWidth';
 
 function App() {
-  const [toggleOnOff, setToggleOnOff] = useState(Array.from({length: 3}, () => false)); //(3) [false, false, false]
-
-  const handleOnclick = (e,idx) => {
-    const newOnOff = Array.from({length: 3}, () => false);
-    newOnOff[idx] = !toggleOnOff[idx];
-    setToggleOnOff(newOnOff)
-  }
+  const width = useWindowWidth();
+  const [name, setName] = useState('');
   return (
     <div className="App">
-      {
-          [1,2,3].map((e,idx) => (
-            <div key={idx}>
-              <button className="toggle" onClick = {e => handleOnclick(e,idx)}>toggle</button>
-              <div className="box" style={{width : '100px', height:'100px', backgroundColor:toggleOnOff[idx] ? 'red' : 'grey'}}>?</div>
-            </div>
-          ))
-      }
+      {width < 600 && <p>(small window)</p>}
+      <p>{`my name is ${name}`}</p>
+      <input type="text" value={name} onChange = {e => setName(e.target.value)} />
     </div>
   );
 }
