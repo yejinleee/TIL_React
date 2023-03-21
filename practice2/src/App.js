@@ -6,7 +6,7 @@ function App() {
 
   const handleOnclick = (e,idx) => {
     const newOnOff = Array.from({length: 3}, () => false);
-    newOnOff[idx]=true;
+    newOnOff[idx] = !toggleOnOff[idx];
     setToggleOnOff(newOnOff)
   }
   return (
